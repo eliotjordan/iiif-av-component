@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # @TODO add 16/18
-        node: [ '14' ]
+        node: [ '16', '18' ]
 
     name: Node ${{ matrix.node }} build
     steps:
@@ -20,10 +19,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
+      - run: npm install
       - run: npm ci
       - run: npm run build
 
@@ -31,8 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # @TODO add 16/18
-        node: [ '14' ]
+        node: [ '16', '18' ]
 
     name: Node ${{ matrix.node }} build
     steps:
@@ -44,10 +43,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
+      - run: npm install
       - run: npm ci
       - run: npm run lint
       - run: npx vitest run
